@@ -1,0 +1,670 @@
+% This file is Copyright (c) 2012 by Chris Schlaeger <chris@linux.com>
+% It's licensed under a NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)
+% license. For details see http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass{beamer}
+
+\mode<presentation>
+{
+  \usetheme{Madrid}
+  \setbeamercovered{transparent}
+  \setbeamersize{text margin left=1cm}
+}
+
+%\usepackage[english]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage{url}
+
+%\title[Projektmanagement mit TaskJuggler]
+%{TaskJuggler 3.x - Projektmanagement für Linuxanwender}
+\title[Projectmanagement with TaskJuggler]
+{TaskJuggler 3.x - project management for linux users}
+
+\subtitle
+%{Projektmanagement ist mehr als Gantt-Diagramm-Zeichnen}
+{project management is more than gantt charts}
+
+\author[C. Schlaeger]{Chris Schlaeger}
+\institute{chris@linux.com}
+\date[CLT 2012] {Chemitzer Linux-Tage 2012\\{\tiny (english translation by Sebastian Tramp)}}
+\subject{project management}
+\keywords{TaskJuggler project management gantt linux}
+
+\lstdefinelanguage{tjp}{
+  keywords=[1]{now,timezone,timeformat,numberformat,currencyformat,currency,
+               extend,text,reference,start,end,effort,length,duration,
+       	efficiency,rate,depends,allocate,
+       	formats,hidetask,sortasks,hideresource,sortresources,
+       	columns, left, header, right, center, navigator, purge},
+  keywordstyle={[1]\color{green}},
+  keywords=[2]{project,scenario,shift,resource,task,
+               textreport,taskreport,resourcereport,tracereport},
+  keywordstyle={[2]\color{red}},
+  sensitive,
+  comment=[s]{/*}{*/},
+  morecomment=[l]//,
+  commentstyle=\color{grey},
+  string=[b]",
+  morestring=[b]',
+  stringstyle=\color{blue}
+}[keywords,comments,strings]
+
+\begin{document}
+
+\lstset{
+  language=tjp,
+  numbers=left,
+  numberstyle=\tiny,
+  showstringspaces=false,
+  frame=leftline,
+  aboveskip=0pt,
+  belowskip=0pt
+}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+%\begin{frame}{Gliederung}
+%  \tableofcontents
+%  % Die Option [pausesections] könnte nützlich sein.
+%\end{frame}
+
+\section{Installation and Usage}
+
+\begin{frame}{TaskJuggler and Linux}
+  \begin{itemize}
+    \item TaskJuggler was initially developed to support the development unit of a Linux distribution
+    \item It is still in use by some distributions such as Fedora
+    \item It uses a simple project description language
+    \item TaskJuggler works similar to a compiler or \LaTeX.
+    \item It consists of a few tools which provide the main features and are integrated with other programs
+  \end{itemize}
+\end{frame}
+%\begin{frame}{TaskJuggler und Linux}
+  %\begin{itemize}
+    %\item TaskJuggler wurde entwickelt um die Entwicklungsabteilung einer Linux-Distribution zu leiten.
+    %\item Es wird immer noch von Distributionen wie Fedora verwendet.
+    %\item Es verwendet eine einfache Projektbeschreibungssprache.
+    %\item TaskJuggler funktioniert ähnlich wie ein Compiler oder \LaTeX.
+    %\item Es besteht aus wenigen Programmen, welche die wesentlichen Funktionen liefern und mit anderen Programmen zusammenarbeiten.
+  %\end{itemize}
+%\end{frame}
+
+\subsection{Installation}
+
+\begin{frame}{Ruby Runtime Environment}
+  \begin{itemize}
+    \item TaskJuggler 3.x is written in ruby
+    \item The main functions are ruby 1.8.7 compatible
+    \item The server and scripting functions need at least ruby 1.9.3
+    \item We generally suggest to use ruby 1.9.3 since it is 3 times faster than ruby 1.8.7
+  \end{itemize}
+\end{frame}
+%\begin{frame}{Die Ruby Laufzeitumgebung}
+  %\begin{itemize}
+    %\item TaskJuggler 3.x ist ein Ruby Programm
+    %\item Die Grundfunktionen sind noch kompatible zu Ruby 1.8.7.
+    %\item Die Server- und Automatisierungsfunktionen erfordern Ruby
+    %mindestends 1.9.3.
+    %\item Es wird generell Ruby 1.9.3 empfohlen da es etwa 3x schneller
+    %ist als 1.8.7.
+  %\end{itemize}
+%\end{frame}
+
+\begin{frame}[fragile]{Gem Installation}
+  \begin{itemize}
+    \item Ruby is available on any Linux distribution
+    \item Unfortunately many distributions provide only ruby 1.8
+    \item RubyGem is the ruby package management tool
+    \item ruby gems are OS and CPU architecture independent
+    \item The installation mostly easy. A single command downloads the gem package as well as its dependencies and installs everything in you system:
+      \begin{verbatim}
+gem install taskjuggler \end{verbatim}
+  \end{itemize}
+\end{frame}
+%\begin{frame}[fragile]{Gem Installation}
+  %\begin{itemize}
+    %\item Alle Linux Distributionen enthalten Ruby.
+    %\item Viele Distributionen enthalten leider immer noch das veraltete Ruby 1.8.
+    %\item RubyGem ist der Paketmanager für Ruby
+    %\item Ruby Gems sind vom Prozessor- und vom Betriebssystem unabhängig.
+    %\item Die Installation ist im Normalfall sehr einfach. Ein
+    %Kommando lädt das Gem Paket und alle Abhängigkeiten herunter und
+    %installiert diese.
+      %\begin{verbatim}
+%gem install taskjuggler \end{verbatim}
+  %\end{itemize}
+%\end{frame}
+
+\begin{frame}[fragile]{Ruby 1.9 Installation}
+  \begin{itemize}
+    \item The current version is available at \url{ruby-lang.org}
+      \url{http://www.ruby-lang.org/en/downloads/}
+    \pause
+    \item decompress, configure and install
+      \begin{verbatim}
+tar -Zxvf ruby-X.X.X-*.tar.gz
+cd ruby-X.X.X-*
+./configure --program-suffix=19
+make
+sudo make install
+ln -s /usr/local/bin/ruby19 ${HOME}/bin/ruby \end{verbatim}
+    \pause
+    \item \verb|${HOME}/bin| has to be part of your \verb|$PATH| varable
+    \pause
+    \item Each major ruby version has its own gem package collection
+  \end{itemize}
+\end{frame}
+%\begin{frame}[fragile]{Ruby 1.9 Installieren}
+  %\begin{itemize}
+    %\item Die aktuelleste Version gibt es auf {\tt ruby-lang.org}
+      %\begin{verbatim}
+%http://www.ruby-.ang.org/en/downloads/\end{verbatim}
+    %\pause
+    %\item Auspacken, konfigurieren und installieren
+      %\begin{verbatim}
+%tar -Zxvf ruby-X.X.X-*.tar.gz
+%cd ruby-X.X.X-*
+%./configure --program-suffix=19
+%make
+%sudo make install
+%ln -s /usr/local/bin/ruby19 ${HOME}/bin/ruby \end{verbatim}
+    %\pause
+    %\item \verb|${HOME}/bin| muss im Pfad enthalten sein
+    %\pause
+    %\item Jede Ruby-Hauptversion hat eine eigene Gem Sammlung
+  %\end{itemize}
+%\end{frame}
+
+\subsection{Use TaskJuggler}
+
+\begin{frame}[fragile]{Die Online-Hilfe: {\tt tj3man}}
+  \begin{itemize}
+    \item Get help for a single TaskJuggler keyword
+      \begin{verbatim}
+tj3man <keyword> \end{verbatim}
+    \pause
+    \item Mit der {\tt--html} Option wird es im Browser dargestellt
+      \begin{verbatim}
+tj3man --html <keyword> \end{verbatim}
+    \pause
+    \item Hilfe zur Hilfe
+      \begin{verbatim}
+tj3man --help \end{verbatim}
+  \end{itemize}
+\end{frame}
+%\begin{frame}[fragile]{Die Online-Hilfe: {\tt tj3man}}
+  %\begin{itemize}
+    %\item Hilfe zu einem TaskJuggler Schlüsselwort
+      %\begin{verbatim}
+%tj3man <keyword> \end{verbatim}
+    %\pause
+    %\item Mit der {\tt--html} Option wird es im Browser dargestellt
+      %\begin{verbatim}
+%tj3man --html <keyword> \end{verbatim}
+    %\pause
+    %\item Hilfe zur Hilfe
+      %\begin{verbatim}
+%tj3man --help \end{verbatim}
+  %\end{itemize}
+%\end{frame}
+
+\begin{frame}[fragile]{Das Hauptprogramm: {\tt tj3}}
+  \begin{itemize}
+    \item Ein Projekt berechnen und Berichte erstellen
+      \begin{verbatim}
+tj3 yourproject.tjp \end{verbatim}
+    \pause
+    \item Projekte können aus mehreren Dateien bestehen
+      \begin{verbatim}
+tj3 yourproject.tjp reports.tji \end{verbatim}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Client und Server: {\tt tj3client} und {\tt tj3d}}
+  \begin{itemize}
+    \item Den Server starten
+      \begin{verbatim}
+tj3d -w \end{verbatim}
+    \pause
+    \item Den Serverstatus abfragen
+      \begin{verbatim}
+tj3client status \end{verbatim}
+    \pause
+    \item Ein Projekt (erneut) laden
+      \begin{verbatim}
+tj3client add yourproject.tjp \end{verbatim}
+    \pause
+    \item Den Server beenden
+      \begin{verbatim}
+tj3client terminate \end{verbatim}
+  \end{itemize}
+\end{frame}
+
+\section{Projekte planen}
+
+\subsection{Die Projektbeschreibungssprache}
+
+\begin{frame}[fragile]{Die Projektbeschreibung}
+  \begin{itemize}
+    \item Alle Projektdaten werden in einer oder mehreren Textdatein abgelegt.
+    \item Information werden als {\it Properties} und zugehörigen {\it Attributes} strukturiert.
+    \item Eine {\it Property} hat immer folgende Stuktur
+      \begin{verbatim}
+PROPERTY [ID] "NAME" [ { ATTRIBUTES } ] \end{verbatim}
+    \item Die in eckigen Klammern eingeschlossenen Elemente sind optional.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Die Properties}
+  Ein Projekt besteht aus folgenden {\it Properties}
+  \begin{itemize}
+    \item {\tt project}: Der Projektkopf
+    \pause
+    \item {\tt accounts}: Konten zur Kostenplanung
+    \pause
+    \item {\tt resources}: Mitarbeiter und Arbeitsmittel
+    \pause
+    \item {\tt tasks}: Die Arbeitsschritte
+    \pause
+    \item {\tt reports}: Die Berichte
+  \end{itemize}
+  \pause
+  Alle {\it Properties} haben {\it Attributes}. Z. B. die {\it
+  Property} {\tt task} hat u. a. die {\it Attributes} {\tt start} und {\tt
+  duration}.
+\end{frame}
+
+\subsection{Der Projektkopf}
+
+\begin{frame}[fragile]{Der Projektkopf}
+  \begin{itemize}
+    \item Wie heisst das Projekt?
+    \item Wann geht es los?
+    \item Wie lange dauert es vorraussichtlich?
+  \end{itemize}
+  \pause
+  \begin{semiverbatim}
+    \begin{lstlisting}
+project "Beispiel"  2012-03-01 +4m
+    \end{lstlisting}
+  \end{semiverbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Landesspezifische Anpassungen}
+  \begin{itemize}
+    \item Lokalisierung der Zeitzone und des Datumsformats
+    \item Anpassung der Zahlendarstellung
+    \item Lokalisierung der Darstellung von Geldbeträgen
+  \end{itemize}
+  \pause
+  \begin{semiverbatim}
+    \begin{lstlisting}
+project "Beispiel"  2012-03-01 +4m {
+  timezone "Europe/Berlin"
+  timeformat "%d.%m.%Y"
+  numberformat "-" "" "" "," 1
+  currencyformat "-" "" "" "," 0
+  currency "EUR"
+}
+    \end{lstlisting}
+  \end{semiverbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Mehrere Szenarien}
+  \begin{itemize}
+    \item Ein Szenario beschreibt eine Variante des Projektverlaufs.
+    \item Es können beliebig viele Szenarien analysiert werden.
+    \item Szenarien können in einer Baumstruktur von einander abgeleitet werden.
+    \item Abgeleitete Szenarien erben alle {\it Attributes}, können sie aber mit eigenen Werten überschreiben.
+  \end{itemize}
+  \pause
+  \begin{semiverbatim}
+    \begin{lstlisting}
+project "Beispiel"  2012-03-01 +4m {
+  scenario plan "Plan" {
+    scenario real "Realität"
+  }
+  now 2012-03-17
+}
+    \end{lstlisting}
+  \end{semiverbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Erweiterung des Datenmodells}
+  \begin{itemize}
+    \item {\it Properties} haben eine Reihe von {\it Attributes}.
+    \item Sie können aber mit eigenen {\it Attributes} erweitert werden.
+  \end{itemize}
+  \pause
+  \begin{semiverbatim}
+    \begin{lstlisting}
+project example "Beispiel"  2012-03-01 +4m {
+  extend resource {
+    text Phone "Phone"
+  }
+  extend task {
+    reference Wiki "Wiki"
+  }
+}
+    \end{lstlisting}
+  \end{semiverbatim}
+\end{frame}
+
+\subsection{Mitarbeiter und Arbeitsmittel}
+
+\begin{frame}[fragile]{Resourcen deklarieren}
+  \begin{itemize}
+    \item Einen Mitarbeiter anlegen
+      \vspace{-15pt}
+      \begin{semiverbatim}
+        \begin{lstlisting}
+resource karl "Karl Mustermann"    
+        \end{lstlisting}
+      \end{semiverbatim}
+    \pause
+    \item Ein Team anlegen
+      \vspace{-15pt}
+      \begin{semiverbatim}
+        \begin{lstlisting}
+resource ateam "Das A-Team" {
+  rate 330.0
+  resource karl "Karl Mustermann"
+  resource erika "Erika Musterfrau"
+}
+        \end{lstlisting}
+      \end{semiverbatim}
+    \pause
+    \item Das {\tt rate} {\it Attribute} wird von den verschachtelten
+    Resourcen übernommen.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Arbeitsmittel deklarieren}
+  \begin{itemize}
+    \item Der Gerät wird nicht müde, leistet aber auch keine Arbeit.
+      \begin{semiverbatim}
+        \begin{lstlisting}
+resource geraet "Der Gerät" {
+  efficiency 0.0
+  rate 500.0
+}
+        \end{lstlisting}
+      \end{semiverbatim}
+  \end{itemize}
+\end{frame}
+
+\subsection{Die Projektgliederung}
+
+\begin{frame}[fragile]{Die Projektgliederung}
+  \begin{semiverbatim}
+    \begin{lstlisting}
+task "Phase 1" {
+  task "Schritt 1"
+  task "Schritt 2"
+}
+task "Phase 2" {
+  task "Schritt 1"
+  task "Schritt 2"
+}
+    \end{lstlisting}
+  \end{semiverbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Abhängigkeiten spezifizieren}
+  \begin{semiverbatim}
+    \begin{lstlisting}
+task p1 "Phase 1" {
+  task s1 "Schritt 1"
+  task "Schritt 2" {
+    depends !s1 # Relative ID
+  }
+}
+task p2 "Phase 2" {
+  task s1 "Schritt 1" {
+    depends p1.s1 # Absolute ID
+  }
+  task "Schritt 2"
+}
+    \end{lstlisting}
+  \end{semiverbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Aufwände und Laufzeiten}
+  \begin{semiverbatim}
+    \begin{lstlisting}
+task p1 "Phase 1" {
+  task s1 "Schritt 1" {
+    duration 2d 
+  task "Schritt 2" {
+    length 10d
+  }
+  task "Schritt 3" {
+    effort 5d
+    allocate karl
+  }
+}
+    \end{lstlisting}
+  \end{semiverbatim}
+\end{frame}
+
+\subsection{Listen und Berichte}
+
+\begin{frame}{Listen und Berichte}
+  \begin{itemize}
+    \item Es werden diverse Listenarten unterstützt
+      \begin{itemize}
+        \item Arbeitslisten
+	\item Mitarbeiter- und Gerätelisten
+	\item Kalender
+	\item Zeiterfassungsvorlagen
+	\item Statusmeldungsvorlagen
+      \end{itemize}
+    \pause
+    \item Listen können in unterschiedlichen Formaten erstellt werden
+      \begin{itemize}
+        \item HTML
+	\item CSV
+	\item TaskJuggler Syntax
+	\item iCal
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Arbeitslisten}
+  \begin{semiverbatim}
+    \begin{lstlisting}
+taskreport "Arbeitsliste" {
+  formats html
+  hidetask ~isleaf()
+  sorttasks plan.end.up
+}
+    \end{lstlisting}
+  \end{semiverbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Mitarbeiterlisten}
+  \begin{semiverbatim}
+    \begin{lstlisting}
+resourcereport "Mitarbeiter" {
+  formats html
+  sortasks plan.id.up
+  columns no, name, email
+}
+    \end{lstlisting}
+  \end{semiverbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Arbeitslisten mit Mitarbeitern}
+  \begin{semiverbatim}
+    \begin{lstlisting}
+taskreport "Arbeitsliste" {
+  formats html
+  hidetask ~isleaf()
+  sortasks plan.effort.up
+  hideresource 0
+  columns no, name, weekly
+}
+    \end{lstlisting}
+  \end{semiverbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Textberichte}
+  \begin{itemize}
+    \item Textberichte bestehen aus bis zu 5 frei definierbaren Textblöcken.
+    \item {\tt header}, {\tt left}, {\tt center}, {\tt right}, {\tt
+    bottom}
+  \end{itemize}
+  \pause
+  \begin{semiverbatim}
+    \begin{lstlisting}
+textreport "Textbericht" {
+  formats html
+  left "Linker Rand"
+  center "Mitte"
+  right "Rechter Rand"
+}
+    \end{lstlisting}
+  \end{semiverbatim}
+\end{frame}
+
+\begin{frame}[fragile]{{\it RichText} Markup}
+  \begin{itemize}
+    \item Viele Textattribute werden als {\it RichText} interpretiert.
+    \item TaskJuggler verwendet eine Teilmenge des MediaWiki Markups.
+    \item Es gibt allerdings einige Erweiterungen:
+    \begin{itemize}
+      \item Textfarben 
+        \begin{verbatim}<fcol:green>Grün</fcol>\end{verbatim}
+      \item Navigationsleiste
+        \begin{verbatim}<[navigator id='mein_menue']>\end{verbatim}
+      \item Wertabfrage 
+        \begin{verbatim}<-query ...->\end{verbatim}
+      \item Eingebetteter Bericht
+        \begin{verbatim}<[report id='mein_report']> \end{verbatim}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Zusammengesetzte Berichte}
+  \begin{semiverbatim}
+    \begin{lstlisting}
+taskreport r1 "" {
+  columns name, chart 
+}
+resourcereport r2 "" {
+  columns name, phone
+}
+textreport "Textbericht" {
+  formats html
+  left "<[report id='r1']>"
+  right "<[report id='r2']>"
+}
+    \end{lstlisting}
+  \end{semiverbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Navigationsleisten für HTML Berichte}
+  \begin{semiverbatim}
+    \begin{lstlisting}
+navigator menu
+textreport "" {
+  header "<[navigator id='menu']>"
+  formats html
+  taskreport "Aufgaben" {
+    columns name, start, end, chart
+    hideresource 0
+  }
+  resourcereport "Mitarbeiter" {
+    columns name, email
+  }
+  purge formats
+}
+    \end{lstlisting}
+  \end{semiverbatim}
+\end{frame}
+
+\section{Projekte steuern}
+
+\subsection{Die Projektverfolgung}
+
+\begin{frame}{Der Projektmanagementzyklus}
+  Nachdem das Projekt gestartet ist, sollten folgende Schritte
+  regelmässig durchgeführt werden:
+  \begin{itemize}
+    \item Geleistete Arbeit für alle laufenden Aufgaben erfragen
+    \item Verbleibenden Aufwand oder Laufzeit erfragen
+    \item Plan entsprechend aktualisieren
+    \item Vergangenheit einfrieren
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{{\tt timesheets} und {\tt statussheets}}
+  \begin{itemize}
+    \item Abfragen der geleisteten und verbleibenden Aufwände und
+    Laufzeiten kann durch {\tt timesheetreports} stark automatisiert
+    werden.
+    \item Hierarchische Statusberichte können mit Hilfe von {\tt
+    statussheetreports} automatisiert werden.
+    \item Dieses Thema ist zu komplex für diesen Vortrag. Es wird im
+    Benutzerhandbuch aber ausführlich beschrieben.
+  \end{itemize}
+\end{frame}
+
+\subsection{Die Vergangenheit einfrieren}
+
+\begin{frame}[fragile]{Die Vergangenheit einfrieren}
+  \begin{itemize}
+    \item Nach dem Aktualisieren des Plans sollte in regelmässigen
+    Abständen die Vergangenheit eingefroren werden.
+    \begin{verbatim}
+tj3 --freeze yourproject.tjp \end{verbatim}
+    \pause
+    \item Es werden 2 Dateien erzeugt oder aktualisiert
+      \begin{itemize}
+        \item {\tt yourproject-header.tjp}
+	\item {\tt yourproject-bookings.tjp}
+      \end{itemize}
+    \pause
+    \item Diese Dateien müssen durch {\tt include} in das Projekt
+    eingebunden werden.
+  \end{itemize}
+\end{frame}
+
+\subsection{Kennwerte beobachten}
+
+\begin{frame}{Kennwerte mit {\tt tracereport} beobachten}
+  \begin{itemize}
+    \item Mit {\tt tracereports} können wichtige Kennwerte über die
+    Projektlaufzeit verfolgt werden.
+    \item Die Daten werden in eine CSV Datei geschrieben, die bei
+    nur bei expliziter Aktualisierung ergänzt wird.
+    \item {\tt tj3 --add-trace yourproject.tjp}
+    \item Eignet sich hervorragend zur Erstellung aktueller Burndown
+    Charts.
+    \item {\tt tracereports} sind die größte Neuerung der nächsten
+    Version (3.2).
+  \end{itemize}
+\end{frame}
+
+\section{Ende}
+
+\begin{frame}{Weiterführende Informationen}
+  \begin{itemize}
+    \item TaskJuggler im Web: {\tt www.taskjuggler.org}
+    \pause
+    \item Online Handbuch: {\tt
+   www.taskjuggler.org/tj3/manual/index.html}
+    \vspace{15pt}
+    \pause
+    \item Fragen?
+  \end{itemize}
+\end{frame}
+
+\end{document}
+
+

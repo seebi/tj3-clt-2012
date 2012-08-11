@@ -1,0 +1,43 @@
+project "Beispiel Project" 2012-03-01 +4m {
+  scenario plan "Plan" {
+    scenario real "Realität"
+  }
+  now 2012-03-17
+}
+
+resource ateam "Das A-Team" {
+  rate 330.0
+  resource karl "Karl Mustermann"
+  resource erika "Erika Musterfrau"
+}
+
+task p1 "Phase 1" {
+  task "Schritt 1" {
+    effort 15d
+    allocate karl
+  }
+  task s2 "Schritt 2" {
+    effort 20d
+    allocate erika
+  }
+}
+task p2 "Phase 2" {
+  depends !p1
+  task "Schritt 1" {
+    duration 10d
+  }
+  task "Schritt 2" {
+    depends p1.s2
+    length 30d
+  }
+}
+task fertig "Fertig" {
+  depends p2
+}
+
+taskreport "Arbeitsliste" {
+  formats html
+  columns name, start, end, chart { scale day }
+  hideresource 0
+}
+
