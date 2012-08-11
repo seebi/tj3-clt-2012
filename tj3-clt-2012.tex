@@ -20,12 +20,12 @@
 
 %\title[Projektmanagement mit TaskJuggler]
 %{TaskJuggler 3.x - Projektmanagement für Linuxanwender}
-\title[Projectmanagement with TaskJuggler]
-{TaskJuggler 3.x - project management for linux users}
+\title[Project Management with TaskJuggler]
+{TaskJuggler 3.x - Project Management for Linux Users}
 
 \subtitle
 %{Projektmanagement ist mehr als Gantt-Diagramm-Zeichnen}
-{project management is more than gantt charts}
+{Project Management is more than Gantt Charts}
 
 \author[C. Schlaeger]{Chris Schlaeger}
 \institute{chris@linux.com}
@@ -80,7 +80,7 @@
     \item TaskJuggler was initially developed to support the development unit of a Linux distribution
     \item It is still in use by some distributions such as Fedora
     \item It uses a simple project description language
-    \item TaskJuggler works similar to a compiler or \LaTeX.
+    \item TaskJuggler works similar to a compiler or \LaTeX
     \item It consists of a few tools which provide the main features and are integrated with other programs
   \end{itemize}
 \end{frame}
@@ -182,17 +182,17 @@ ln -s /usr/local/bin/ruby19 ${HOME}/bin/ruby \end{verbatim}
 
 \subsection{Use TaskJuggler}
 
-\begin{frame}[fragile]{Die Online-Hilfe: {\tt tj3man}}
+\begin{frame}[fragile]{Online Help: {\tt tj3man}}
   \begin{itemize}
     \item Get help for a single TaskJuggler keyword
       \begin{verbatim}
 tj3man <keyword> \end{verbatim}
     \pause
-    \item Mit der {\tt--html} Option wird es im Browser dargestellt
+    \item Use {\tt--html} to load it in the browser
       \begin{verbatim}
 tj3man --html <keyword> \end{verbatim}
     \pause
-    \item Hilfe zur Hilfe
+    \item Get help for the online help tool
       \begin{verbatim}
 tj3man --help \end{verbatim}
   \end{itemize}
@@ -213,98 +213,168 @@ tj3man --help \end{verbatim}
   %\end{itemize}
 %\end{frame}
 
-\begin{frame}[fragile]{Das Hauptprogramm: {\tt tj3}}
+\begin{frame}[fragile]{The main program: {\tt tj3}}
   \begin{itemize}
-    \item Ein Projekt berechnen und Berichte erstellen
+    \item Calculate a project and create reports
       \begin{verbatim}
 tj3 yourproject.tjp \end{verbatim}
     \pause
-    \item Projekte können aus mehreren Dateien bestehen
+    \item Projects can consist of more than one file
       \begin{verbatim}
 tj3 yourproject.tjp reports.tji \end{verbatim}
   \end{itemize}
 \end{frame}
+%\begin{frame}[fragile]{Das Hauptprogramm: {\tt tj3}}
+  %\begin{itemize}
+    %\item Ein Projekt berechnen und Berichte erstellen
+      %\begin{verbatim}
+%tj3 yourproject.tjp \end{verbatim}
+    %\pause
+    %\item Projekte können aus mehreren Dateien bestehen
+      %\begin{verbatim}
+%tj3 yourproject.tjp reports.tji \end{verbatim}
+  %\end{itemize}
+%\end{frame}
 
-\begin{frame}[fragile]{Client und Server: {\tt tj3client} und {\tt tj3d}}
+\begin{frame}[fragile]{Client and Server: {\tt tj3client} and {\tt tj3d}}
   \begin{itemize}
-    \item Den Server starten
+    \item Start the server
       \begin{verbatim}
 tj3d -w \end{verbatim}
     \pause
-    \item Den Serverstatus abfragen
+    \item Query the server status
       \begin{verbatim}
 tj3client status \end{verbatim}
     \pause
-    \item Ein Projekt (erneut) laden
+    \item (Re-)load a project
       \begin{verbatim}
 tj3client add yourproject.tjp \end{verbatim}
     \pause
-    \item Den Server beenden
+    \item Shutdown the server
       \begin{verbatim}
 tj3client terminate \end{verbatim}
   \end{itemize}
 \end{frame}
+%\begin{frame}[fragile]{Client und Server: {\tt tj3client} und {\tt tj3d}}
+  %\begin{itemize}
+    %\item Den Server starten
+      %\begin{verbatim}
+%tj3d -w \end{verbatim}
+    %\pause
+    %\item Den Serverstatus abfragen
+      %\begin{verbatim}
+%tj3client status \end{verbatim}
+    %\pause
+    %\item Ein Projekt (erneut) laden
+      %\begin{verbatim}
+%tj3client add yourproject.tjp \end{verbatim}
+    %\pause
+    %\item Den Server beenden
+      %\begin{verbatim}
+%tj3client terminate \end{verbatim}
+  %\end{itemize}
+%\end{frame}
 
-\section{Projekte planen}
+\section{Project Scheduling}
 
-\subsection{Die Projektbeschreibungssprache}
+\subsection{The Project Description Language}
 
-\begin{frame}[fragile]{Die Projektbeschreibung}
+\begin{frame}[fragile]{The Project Description}
   \begin{itemize}
-    \item Alle Projektdaten werden in einer oder mehreren Textdatein abgelegt.
-    \item Information werden als {\it Properties} und zugehörigen {\it Attributes} strukturiert.
-    \item Eine {\it Property} hat immer folgende Stuktur
+    \item All project data is collected in one ore more text files
+    \item Information is structured as {\it properties} which consists of {\it attributes}
+    \item A single {\it property} has always the following structure
       \begin{verbatim}
 PROPERTY [ID] "NAME" [ { ATTRIBUTES } ] \end{verbatim}
-    \item Die in eckigen Klammern eingeschlossenen Elemente sind optional.
+    \item Elements surrounded by {\tt []} are optional
   \end{itemize}
 \end{frame}
+%\begin{frame}[fragile]{Die Projektbeschreibung}
+  %\begin{itemize}
+    %\item Alle Projektdaten werden in einer oder mehreren Textdatein abgelegt.
+    %\item Information werden als {\it Properties} und zugehörigen {\it Attributes} strukturiert.
+    %\item Eine {\it Property} hat immer folgende Stuktur
+      %\begin{verbatim}
+%PROPERTY [ID] "NAME" [ { ATTRIBUTES } ] \end{verbatim}
+    %\item Die in eckigen Klammern eingeschlossenen Elemente sind optional.
+  %\end{itemize}
+%\end{frame}
 
-\begin{frame}[fragile]{Die Properties}
-  Ein Projekt besteht aus folgenden {\it Properties}
+\begin{frame}[fragile]{The Properties}
+  A project consists of the following {\it properties}
   \begin{itemize}
-    \item {\tt project}: Der Projektkopf
+    \item {\tt project}: the project head
     \pause
-    \item {\tt accounts}: Konten zur Kostenplanung
+    \item {\tt accounts}: accounts for cost calculation
     \pause
-    \item {\tt resources}: Mitarbeiter und Arbeitsmittel
+    \item {\tt resources}: human and non-human resources
     \pause
-    \item {\tt tasks}: Die Arbeitsschritte
+    \item {\tt tasks}: the project tasks
     \pause
-    \item {\tt reports}: Die Berichte
+    \item {\tt reports}: reports to generate
   \end{itemize}
   \pause
-  Alle {\it Properties} haben {\it Attributes}. Z. B. die {\it
-  Property} {\tt task} hat u. a. die {\it Attributes} {\tt start} und {\tt
-  duration}.
+  All {\it properties} have {\it attributes}, e.g. the {\it property} {\tt task}
+  has the  {\it attributes} {\tt start}, {\tt duration} as well as other properties.
 \end{frame}
+%\begin{frame}[fragile]{Die Properties}
+  %Ein Projekt besteht aus folgenden {\it Properties}
+  %\begin{itemize}
+    %\item {\tt project}: Der Projektkopf
+    %\pause
+    %\item {\tt accounts}: Konten zur Kostenplanung
+    %\pause
+    %\item {\tt resources}: Mitarbeiter und Arbeitsmittel
+    %\pause
+    %\item {\tt tasks}: Die Arbeitsschritte
+    %\pause
+    %\item {\tt reports}: Die Berichte
+  %\end{itemize}
+  %\pause
+  %Alle {\it Properties} haben {\it Attributes}. Z. B. die {\it
+  %Property} {\tt task} hat u. a. die {\it Attributes} {\tt start} und {\tt
+  %duration}.
+%\end{frame}
 
-\subsection{Der Projektkopf}
+\subsection{The Project Head}
 
-\begin{frame}[fragile]{Der Projektkopf}
+\begin{frame}[fragile]{The Project Head}
   \begin{itemize}
-    \item Wie heisst das Projekt?
-    \item Wann geht es los?
-    \item Wie lange dauert es vorraussichtlich?
+    \item What is the name of the project?
+    \item When do you start?
+    \item How long is the project?
   \end{itemize}
   \pause
   \begin{semiverbatim}
     \begin{lstlisting}
-project "Beispiel"  2012-03-01 +4m
+project "Example"  2012-03-01 +4m
     \end{lstlisting}
   \end{semiverbatim}
 \end{frame}
+%\begin{frame}[fragile]{Der Projektkopf}
+  %\begin{itemize}
+    %\item Wie heisst das Projekt?
+    %\item Wann geht es los?
+    %\item Wie lange dauert es vorraussichtlich?
+  %\end{itemize}
+  %\pause
+  %\begin{semiverbatim}
+    %\begin{lstlisting}
+%project "Beispiel"  2012-03-01 +4m
+    %\end{lstlisting}
+  %\end{semiverbatim}
+%\end{frame}
 
-\begin{frame}[fragile]{Landesspezifische Anpassungen}
+\begin{frame}[fragile]{Country specific adjustments}
   \begin{itemize}
-    \item Lokalisierung der Zeitzone und des Datumsformats
-    \item Anpassung der Zahlendarstellung
-    \item Lokalisierung der Darstellung von Geldbeträgen
+    \item Date format and time zone localization
+    \item Time format
+    \item Money value localization
   \end{itemize}
   \pause
   \begin{semiverbatim}
     \begin{lstlisting}
-project "Beispiel"  2012-03-01 +4m {
+project "Example"  2012-03-01 +4m {
   timezone "Europe/Berlin"
   timeformat "%d.%m.%Y"
   numberformat "-" "" "" "," 1
@@ -314,11 +384,30 @@ project "Beispiel"  2012-03-01 +4m {
     \end{lstlisting}
   \end{semiverbatim}
 \end{frame}
+%\begin{frame}[fragile]{Landesspezifische Anpassungen}
+  %\begin{itemize}
+    %\item Lokalisierung der Zeitzone und des Datumsformats
+    %\item Anpassung der Zahlendarstellung
+    %\item Lokalisierung der Darstellung von Geldbeträgen
+  %\end{itemize}
+  %\pause
+  %\begin{semiverbatim}
+    %\begin{lstlisting}
+%project "Beispiel"  2012-03-01 +4m {
+  %timezone "Europe/Berlin"
+  %timeformat "%d.%m.%Y"
+  %numberformat "-" "" "" "," 1
+  %currencyformat "-" "" "" "," 0
+  %currency "EUR"
+%}
+    %\end{lstlisting}
+  %\end{semiverbatim}
+%\end{frame}
 
-\begin{frame}[fragile]{Mehrere Szenarien}
+\begin{frame}[fragile]{Different Scenarios}
   \begin{itemize}
-    \item Ein Szenario beschreibt eine Variante des Projektverlaufs.
-    \item Es können beliebig viele Szenarien analysiert werden.
+    \item A scenario describes a variant of the project
+    \item You can write and calculate as much scenarios as you want
     \item Szenarien können in einer Baumstruktur von einander abgeleitet werden.
     \item Abgeleitete Szenarien erben alle {\it Attributes}, können sie aber mit eigenen Werten überschreiben.
   \end{itemize}
@@ -334,6 +423,25 @@ project "Beispiel"  2012-03-01 +4m {
     \end{lstlisting}
   \end{semiverbatim}
 \end{frame}
+%\begin{frame}[fragile]{Mehrere Szenarien}
+  %\begin{itemize}
+    %\item Ein Szenario beschreibt eine Variante des Projektverlaufs.
+    %\item Es können beliebig viele Szenarien analysiert werden.
+    %\item Szenarien können in einer Baumstruktur von einander abgeleitet werden.
+    %\item Abgeleitete Szenarien erben alle {\it Attributes}, können sie aber mit eigenen Werten überschreiben.
+  %\end{itemize}
+  %\pause
+  %\begin{semiverbatim}
+    %\begin{lstlisting}
+%project "Beispiel"  2012-03-01 +4m {
+  %scenario plan "Plan" {
+    %scenario real "Realität"
+  %}
+  %now 2012-03-17
+%}
+    %\end{lstlisting}
+  %\end{semiverbatim}
+%\end{frame}
 
 \begin{frame}[fragile]{Erweiterung des Datenmodells}
   \begin{itemize}
