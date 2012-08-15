@@ -365,7 +365,7 @@ project "Example"  2012-03-01 +4m
   %\end{semiverbatim}
 %\end{frame}
 
-\begin{frame}[fragile]{Country specific adjustments}
+\begin{frame}[fragile]{Localization}
   \begin{itemize}
     \item Date format and time zone localization
     \item Time format
@@ -408,8 +408,8 @@ project "Example"  2012-03-01 +4m {
   \begin{itemize}
     \item A scenario describes a variant of the project
     \item You can write and calculate as much scenarios as you want
-    \item Szenarien können in einer Baumstruktur von einander abgeleitet werden.
-    \item Abgeleitete Szenarien erben alle {\it Attributes}, können sie aber mit eigenen Werten überschreiben.
+    \item Scenarios can be nested
+    \item Nested scenarios inherit all {\it attributes} but can overwrite them
   \end{itemize}
   \pause
   \begin{semiverbatim}
@@ -443,15 +443,15 @@ project "Beispiel"  2012-03-01 +4m {
   %\end{semiverbatim}
 %\end{frame}
 
-\begin{frame}[fragile]{Erweiterung des Datenmodells}
+\begin{frame}[fragile]{Extend the Data Model}
   \begin{itemize}
-    \item {\it Properties} haben eine Reihe von {\it Attributes}.
-    \item Sie können aber mit eigenen {\it Attributes} erweitert werden.
+    \item {\it Properties} can have a set of {\it attributes}
+    \item You can extend this set with your own {\it attributes}
   \end{itemize}
   \pause
   \begin{semiverbatim}
     \begin{lstlisting}
-project example "Beispiel"  2012-03-01 +4m {
+project example "Example"  2012-03-01 +4m {
   extend resource {
     text Phone "Phone"
   }
@@ -462,12 +462,31 @@ project example "Beispiel"  2012-03-01 +4m {
     \end{lstlisting}
   \end{semiverbatim}
 \end{frame}
+%\begin{frame}[fragile]{Erweiterung des Datenmodells}
+  %\begin{itemize}
+    %\item {\it Properties} haben eine Reihe von {\it Attributes}.
+    %\item Sie können aber mit eigenen {\it Attributes} erweitert werden.
+  %\end{itemize}
+  %\pause
+  %\begin{semiverbatim}
+    %\begin{lstlisting}
+%project example "Beispiel"  2012-03-01 +4m {
+  %extend resource {
+    %text Phone "Phone"
+  %}
+  %extend task {
+    %reference Wiki "Wiki"
+  %}
+%}
+    %\end{lstlisting}
+  %\end{semiverbatim}
+%\end{frame}
 
-\subsection{Mitarbeiter und Arbeitsmittel}
+\subsection{Human and Other Resources}
 
-\begin{frame}[fragile]{Resourcen deklarieren}
+\begin{frame}[fragile]{Define Resources}
   \begin{itemize}
-    \item Einen Mitarbeiter anlegen
+    \item Add an employee to the project
       \vspace{-15pt}
       \begin{semiverbatim}
         \begin{lstlisting}
@@ -475,7 +494,7 @@ resource karl "Karl Mustermann"
         \end{lstlisting}
       \end{semiverbatim}
     \pause
-    \item Ein Team anlegen
+    \item Create a team
       \vspace{-15pt}
       \begin{semiverbatim}
         \begin{lstlisting}
@@ -487,17 +506,42 @@ resource ateam "Das A-Team" {
         \end{lstlisting}
       \end{semiverbatim}
     \pause
-    \item Das {\tt rate} {\it Attribute} wird von den verschachtelten
-    Resourcen übernommen.
+    \item All nested resources re-use the {\it attribute} {\tt rate}
   \end{itemize}
 \end{frame}
+%\begin{frame}[fragile]{Resourcen deklarieren}
+  %\begin{itemize}
+    %\item Einen Mitarbeiter anlegen
+      %\vspace{-15pt}
+      %\begin{semiverbatim}
+        %\begin{lstlisting}
+%resource karl "Karl Mustermann"    
+        %\end{lstlisting}
+      %\end{semiverbatim}
+    %\pause
+    %\item Ein Team anlegen
+      %\vspace{-15pt}
+      %\begin{semiverbatim}
+        %\begin{lstlisting}
+%resource ateam "Das A-Team" {
+  %rate 330.0
+  %resource karl "Karl Mustermann"
+  %resource erika "Erika Musterfrau"
+%}
+        %\end{lstlisting}
+      %\end{semiverbatim}
+    %\pause
+    %\item Das {\tt rate} {\it Attribute} wird von den verschachtelten
+    %Resourcen übernommen.
+  %\end{itemize}
+%\end{frame}
 
-\begin{frame}[fragile]{Arbeitsmittel deklarieren}
+\begin{frame}[fragile]{Other resources such as tools}
   \begin{itemize}
-    \item Der Gerät wird nicht müde, leistet aber auch keine Arbeit.
+    \item The tool never sleeps but also does not work
       \begin{semiverbatim}
         \begin{lstlisting}
-resource geraet "Der Gerät" {
+resource tool "The Tool" {
   efficiency 0.0
   rate 500.0
 }
@@ -505,53 +549,98 @@ resource geraet "Der Gerät" {
       \end{semiverbatim}
   \end{itemize}
 \end{frame}
+%\begin{frame}[fragile]{Arbeitsmittel deklarieren}
+  %\begin{itemize}
+    %\item Der Gerät wird nicht müde, leistet aber auch keine Arbeit.
+      %\begin{semiverbatim}
+        %\begin{lstlisting}
+%resource geraet "Der Gerät" {
+  %efficiency 0.0
+  %rate 500.0
+%}
+        %\end{lstlisting}
+      %\end{semiverbatim}
+  %\end{itemize}
+%\end{frame}
 
-\subsection{Die Projektgliederung}
+\subsection{Project Task Structure}
 
-\begin{frame}[fragile]{Die Projektgliederung}
+\begin{frame}[fragile]{The Project Task Structure}
   \begin{semiverbatim}
     \begin{lstlisting}
 task "Phase 1" {
-  task "Schritt 1"
-  task "Schritt 2"
+  task "Step 1"
+  task "Step 2"
 }
 task "Phase 2" {
-  task "Schritt 1"
-  task "Schritt 2"
+  task "Step 1"
+  task "Step 2"
 }
     \end{lstlisting}
   \end{semiverbatim}
 \end{frame}
+%\begin{frame}[fragile]{Die Projektgliederung}
+  %\begin{semiverbatim}
+    %\begin{lstlisting}
+%task "Phase 1" {
+  %task "Schritt 1"
+  %task "Schritt 2"
+%}
+%task "Phase 2" {
+  %task "Schritt 1"
+  %task "Schritt 2"
+%}
+    %\end{lstlisting}
+  %\end{semiverbatim}
+%\end{frame}
 
-\begin{frame}[fragile]{Abhängigkeiten spezifizieren}
+\begin{frame}[fragile]{Define Dependencies}
   \begin{semiverbatim}
     \begin{lstlisting}
 task p1 "Phase 1" {
-  task s1 "Schritt 1"
-  task "Schritt 2" {
-    depends !s1 # Relative ID
+  task s1 "Step 1"
+  task "Step 2" {
+    depends !s1 # relative ID
   }
 }
 task p2 "Phase 2" {
-  task s1 "Schritt 1" {
-    depends p1.s1 # Absolute ID
+  task s1 "Step 1" {
+    depends p1.s1 # absolute ID
   }
-  task "Schritt 2"
+  task "Step 2"
 }
     \end{lstlisting}
   \end{semiverbatim}
 \end{frame}
+%\begin{frame}[fragile]{Abhängigkeiten spezifizieren}
+  %\begin{semiverbatim}
+    %\begin{lstlisting}
+%task p1 "Phase 1" {
+  %task s1 "Schritt 1"
+  %task "Schritt 2" {
+    %depends !s1 # Relative ID
+  %}
+%}
+%task p2 "Phase 2" {
+  %task s1 "Schritt 1" {
+    %depends p1.s1 # Absolute ID
+  %}
+  %task "Schritt 2"
+%}
+    %\end{lstlisting}
+  %\end{semiverbatim}
+%\end{frame}
 
-\begin{frame}[fragile]{Aufwände und Laufzeiten}
+\begin{frame}[fragile]{Workload and Task Lengths}
   \begin{semiverbatim}
     \begin{lstlisting}
 task p1 "Phase 1" {
-  task s1 "Schritt 1" {
+  task s1 "Step 1" {
     duration 2d 
-  task "Schritt 2" {
+  task "Step 2" {
     length 10d
   }
-  task "Schritt 3" {
+  task "Step 3" {
     effort 5d
     allocate karl
   }
@@ -559,21 +648,38 @@ task p1 "Phase 1" {
     \end{lstlisting}
   \end{semiverbatim}
 \end{frame}
+%\begin{frame}[fragile]{Aufwände und Laufzeiten}
+  %\begin{semiverbatim}
+    %\begin{lstlisting}
+%task p1 "Phase 1" {
+  %task s1 "Schritt 1" {
+    %duration 2d 
+  %task "Schritt 2" {
+    %length 10d
+  %}
+  %task "Schritt 3" {
+    %effort 5d
+    %allocate karl
+  %}
+%}
+    %\end{lstlisting}
+  %\end{semiverbatim}
+%\end{frame}
 
-\subsection{Listen und Berichte}
+\subsection{Lists and Reports}
 
-\begin{frame}{Listen und Berichte}
+\begin{frame}{Lists and Reports}
   \begin{itemize}
-    \item Es werden diverse Listenarten unterstützt
+    \item TaskJuggler supports differnt types of lists and reports
       \begin{itemize}
-        \item Arbeitslisten
-	\item Mitarbeiter- und Gerätelisten
-	\item Kalender
-	\item Zeiterfassungsvorlagen
-	\item Statusmeldungsvorlagen
+        \item Task lists
+	\item Employee and resource lists
+	\item Calendar
+	\item Time sheet forms
+	\item Status report forms
       \end{itemize}
     \pause
-    \item Listen können in unterschiedlichen Formaten erstellt werden
+    \item TaskJuggler can create lists in different formats
       \begin{itemize}
         \item HTML
 	\item CSV
@@ -582,11 +688,31 @@ task p1 "Phase 1" {
       \end{itemize}
   \end{itemize}
 \end{frame}
+%\begin{frame}{Listen und Berichte}
+  %\begin{itemize}
+    %\item Es werden diverse Listenarten unterstützt
+      %\begin{itemize}
+        %\item Arbeitslisten
+	%\item Mitarbeiter- und Gerätelisten
+	%\item Kalender
+	%\item Zeiterfassungsvorlagen
+	%\item Statusmeldungsvorlagen
+      %\end{itemize}
+    %\pause
+    %\item Listen können in unterschiedlichen Formaten erstellt werden
+      %\begin{itemize}
+        %\item HTML
+	%\item CSV
+	%\item TaskJuggler Syntax
+	%\item iCal
+      %\end{itemize}
+  %\end{itemize}
+%\end{frame}
 
-\begin{frame}[fragile]{Arbeitslisten}
+\begin{frame}[fragile]{Task Lists}
   \begin{semiverbatim}
     \begin{lstlisting}
-taskreport "Arbeitsliste" {
+taskreport "Tasks" {
   formats html
   hidetask ~isleaf()
   sorttasks plan.end.up
@@ -594,11 +720,22 @@ taskreport "Arbeitsliste" {
     \end{lstlisting}
   \end{semiverbatim}
 \end{frame}
+%\begin{frame}[fragile]{Arbeitslisten}
+  %\begin{semiverbatim}
+    %\begin{lstlisting}
+%taskreport "Arbeitsliste" {
+  %formats html
+  %hidetask ~isleaf()
+  %sorttasks plan.end.up
+%}
+    %\end{lstlisting}
+  %\end{semiverbatim}
+%\end{frame}
 
-\begin{frame}[fragile]{Mitarbeiterlisten}
+\begin{frame}[fragile]{Employee Lists}
   \begin{semiverbatim}
     \begin{lstlisting}
-resourcereport "Mitarbeiter" {
+resourcereport "Employees" {
   formats html
   sortasks plan.id.up
   columns no, name, email
@@ -606,11 +743,22 @@ resourcereport "Mitarbeiter" {
     \end{lstlisting}
   \end{semiverbatim}
 \end{frame}
+%\begin{frame}[fragile]{Mitarbeiterlisten}
+  %\begin{semiverbatim}
+    %\begin{lstlisting}
+%resourcereport "Mitarbeiter" {
+  %formats html
+  %sortasks plan.id.up
+  %columns no, name, email
+%}
+    %\end{lstlisting}
+  %\end{semiverbatim}
+%\end{frame}
 
-\begin{frame}[fragile]{Arbeitslisten mit Mitarbeitern}
+\begin{frame}[fragile]{Task lists with employees}
   \begin{semiverbatim}
     \begin{lstlisting}
-taskreport "Arbeitsliste" {
+taskreport "Tasks" {
   formats html
   hidetask ~isleaf()
   sortasks plan.effort.up
@@ -620,45 +768,93 @@ taskreport "Arbeitsliste" {
     \end{lstlisting}
   \end{semiverbatim}
 \end{frame}
+%\begin{frame}[fragile]{Arbeitslisten mit Mitarbeitern}
+  %\begin{semiverbatim}
+    %\begin{lstlisting}
+%taskreport "Arbeitsliste" {
+  %formats html
+  %hidetask ~isleaf()
+  %sortasks plan.effort.up
+  %hideresource 0
+  %columns no, name, weekly
+%}
+    %\end{lstlisting}
+  %\end{semiverbatim}
+%\end{frame}
 
-\begin{frame}[fragile]{Textberichte}
+\begin{frame}[fragile]{Text Reports}
   \begin{itemize}
-    \item Textberichte bestehen aus bis zu 5 frei definierbaren Textblöcken.
+    \item Text reports consists of up to five customizable text fields
     \item {\tt header}, {\tt left}, {\tt center}, {\tt right}, {\tt
     bottom}
   \end{itemize}
   \pause
   \begin{semiverbatim}
     \begin{lstlisting}
-textreport "Textbericht" {
+textreport "Report" {
   formats html
-  left "Linker Rand"
-  center "Mitte"
-  right "Rechter Rand"
+  left "Left Margin"
+  center "Center Area"
+  right "Right Margin"
 }
     \end{lstlisting}
   \end{semiverbatim}
 \end{frame}
+%\begin{frame}[fragile]{Textberichte}
+  %\begin{itemize}
+    %\item Textberichte bestehen aus bis zu 5 frei definierbaren Textblöcken.
+    %\item {\tt header}, {\tt left}, {\tt center}, {\tt right}, {\tt
+    %bottom}
+  %\end{itemize}
+  %\pause
+  %\begin{semiverbatim}
+    %\begin{lstlisting}
+%textreport "Textbericht" {
+  %formats html
+  %left "Linker Rand"
+  %center "Mitte"
+  %right "Rechter Rand"
+%}
+    %\end{lstlisting}
+  %\end{semiverbatim}
+%\end{frame}
 
 \begin{frame}[fragile]{{\it RichText} Markup}
   \begin{itemize}
-    \item Viele Textattribute werden als {\it RichText} interpretiert.
-    \item TaskJuggler verwendet eine Teilmenge des MediaWiki Markups.
-    \item Es gibt allerdings einige Erweiterungen:
+    \item Most text attributes are interpreted as {\it RichText} markup
+    \item TaskJuggler uses a subset of MediaWiki's markup \ldots
+    \item \ldots{} and extends this subset for
     \begin{itemize}
-      \item Textfarben 
-        \begin{verbatim}<fcol:green>Grün</fcol>\end{verbatim}
-      \item Navigationsleiste
-        \begin{verbatim}<[navigator id='mein_menue']>\end{verbatim}
-      \item Wertabfrage 
+      \item text colors,
+        \begin{verbatim}<fcol:green>Green</fcol>\end{verbatim}
+      \item navigation menus,
+        \begin{verbatim}<[navigator id='my_menu']>\end{verbatim}
+      \item value queries and
         \begin{verbatim}<-query ...->\end{verbatim}
-      \item Eingebetteter Bericht
-        \begin{verbatim}<[report id='mein_report']> \end{verbatim}
+      \item inline reports
+        \begin{verbatim}<[report id='my_report']> \end{verbatim}
     \end{itemize}
   \end{itemize}
 \end{frame}
+%\begin{frame}[fragile]{{\it RichText} Markup}
+  %\begin{itemize}
+    %\item Viele Textattribute werden als {\it RichText} interpretiert.
+    %\item TaskJuggler verwendet eine Teilmenge des MediaWiki Markups.
+    %\item Es gibt allerdings einige Erweiterungen:
+    %\begin{itemize}
+      %\item Textfarben 
+        %\begin{verbatim}<fcol:green>Grün</fcol>\end{verbatim}
+      %\item Navigationsleiste
+        %\begin{verbatim}<[navigator id='mein_menue']>\end{verbatim}
+      %\item Wertabfrage 
+        %\begin{verbatim}<-query ...->\end{verbatim}
+      %\item Eingebetteter Bericht
+        %\begin{verbatim}<[report id='mein_report']> \end{verbatim}
+    %\end{itemize}
+  %\end{itemize}
+%\end{frame}
 
-\begin{frame}[fragile]{Zusammengesetzte Berichte}
+\begin{frame}[fragile]{Compound Reports}
   \begin{semiverbatim}
     \begin{lstlisting}
 taskreport r1 "" {
@@ -667,7 +863,7 @@ taskreport r1 "" {
 resourcereport r2 "" {
   columns name, phone
 }
-textreport "Textbericht" {
+textreport "Report" {
   formats html
   left "<[report id='r1']>"
   right "<[report id='r2']>"
@@ -675,19 +871,36 @@ textreport "Textbericht" {
     \end{lstlisting}
   \end{semiverbatim}
 \end{frame}
+%\begin{frame}[fragile]{Zusammengesetzte Berichte}
+  %\begin{semiverbatim}
+    %\begin{lstlisting}
+%taskreport r1 "" {
+  %columns name, chart 
+%}
+%resourcereport r2 "" {
+  %columns name, phone
+%}
+%textreport "Textbericht" {
+  %formats html
+  %left "<[report id='r1']>"
+  %right "<[report id='r2']>"
+%}
+    %\end{lstlisting}
+  %\end{semiverbatim}
+%\end{frame}
 
-\begin{frame}[fragile]{Navigationsleisten für HTML Berichte}
+\begin{frame}[fragile]{HTML Navigation Menus}
   \begin{semiverbatim}
     \begin{lstlisting}
 navigator menu
 textreport "" {
   header "<[navigator id='menu']>"
   formats html
-  taskreport "Aufgaben" {
+  taskreport "Tasks" {
     columns name, start, end, chart
     hideresource 0
   }
-  resourcereport "Mitarbeiter" {
+  resourcereport "Employees" {
     columns name, email
   }
   purge formats
@@ -695,83 +908,146 @@ textreport "" {
     \end{lstlisting}
   \end{semiverbatim}
 \end{frame}
+%\begin{frame}[fragile]{Navigationsleisten für HTML Berichte}
+  %\begin{semiverbatim}
+    %\begin{lstlisting}
+%navigator menu
+%textreport "" {
+  %header "<[navigator id='menu']>"
+  %formats html
+  %taskreport "Aufgaben" {
+    %columns name, start, end, chart
+    %hideresource 0
+  %}
+  %resourcereport "Mitarbeiter" {
+    %columns name, email
+  %}
+  %purge formats
+%}
+    %\end{lstlisting}
+  %\end{semiverbatim}
+%\end{frame}
 
-\section{Projekte steuern}
+\section{Project Controlling}
 
-\subsection{Die Projektverfolgung}
+\subsection{Project Tracking}
 
-\begin{frame}{Der Projektmanagementzyklus}
-  Nachdem das Projekt gestartet ist, sollten folgende Schritte
-  regelmässig durchgeführt werden:
+\begin{frame}{Project Management Cycle}
+  After starting the project, the following tasks should be re-run on a regularly:
   \begin{itemize}
-    \item Geleistete Arbeit für alle laufenden Aufgaben erfragen
-    \item Verbleibenden Aufwand oder Laufzeit erfragen
-    \item Plan entsprechend aktualisieren
-    \item Vergangenheit einfrieren
+    \item Ask for done workload for current tasks
+    \item Ask for workload or time left for current tasks
+    \item Update project description based on this data
+    \item Freeze project history
   \end{itemize}
 \end{frame}
 
-\begin{frame}{{\tt timesheets} und {\tt statussheets}}
+\begin{frame}{{\tt timesheets} and {\tt statussheets}}
   \begin{itemize}
-    \item Abfragen der geleisteten und verbleibenden Aufwände und
-    Laufzeiten kann durch {\tt timesheetreports} stark automatisiert
-    werden.
-    \item Hierarchische Statusberichte können mit Hilfe von {\tt
-    statussheetreports} automatisiert werden.
-    \item Dieses Thema ist zu komplex für diesen Vortrag. Es wird im
-    Benutzerhandbuch aber ausführlich beschrieben.
+    \item Report of done and left workload and task times can be organized
+    semi-automatically with {\tt timesheetreports}
+    \item Hierarchical status reports be organized semi-automatically
+    with {\tt statussheetreports}
+    \item This topic is too much complex for this slides but is documented
+    well in the user documentation.
   \end{itemize}
 \end{frame}
+%\begin{frame}{{\tt timesheets} und {\tt statussheets}}
+  %\begin{itemize}
+    %\item Abfragen der geleisteten und verbleibenden Aufwände und
+    %Laufzeiten kann durch {\tt timesheetreports} stark automatisiert
+    %werden.
+    %\item Hierarchische Statusberichte können mit Hilfe von {\tt
+    %statussheetreports} automatisiert werden.
+    %\item Dieses Thema ist zu komplex für diesen Vortrag. Es wird im
+    %Benutzerhandbuch aber ausführlich beschrieben.
+  %\end{itemize}
+%\end{frame}
 
-\subsection{Die Vergangenheit einfrieren}
+\subsection{Freeze the Project History}
 
-\begin{frame}[fragile]{Die Vergangenheit einfrieren}
+\begin{frame}[fragile]{Freeze the Project History}
   \begin{itemize}
-    \item Nach dem Aktualisieren des Plans sollte in regelmässigen
-    Abständen die Vergangenheit eingefroren werden.
+    \item After upgrading the project description with the reported data,
+    the project history should be friezed.
     \begin{verbatim}
 tj3 --freeze yourproject.tjp \end{verbatim}
     \pause
-    \item Es werden 2 Dateien erzeugt oder aktualisiert
+    \item This will create or update the following two files:
       \begin{itemize}
         \item {\tt yourproject-header.tjp}
 	\item {\tt yourproject-bookings.tjp}
       \end{itemize}
     \pause
-    \item Diese Dateien müssen durch {\tt include} in das Projekt
-    eingebunden werden.
+    \item These files must be included to the project with {\tt include}
   \end{itemize}
 \end{frame}
+%\begin{frame}[fragile]{Die Vergangenheit einfrieren}
+  %\begin{itemize}
+    %\item Nach dem Aktualisieren des Plans sollte in regelmässigen
+    %Abständen die Vergangenheit eingefroren werden.
+    %\begin{verbatim}
+%tj3 --freeze yourproject.tjp \end{verbatim}
+    %\pause
+    %\item Es werden 2 Dateien erzeugt oder aktualisiert
+      %\begin{itemize}
+        %\item {\tt yourproject-header.tjp}
+	%\item {\tt yourproject-bookings.tjp}
+      %\end{itemize}
+    %\pause
+    %\item Diese Dateien müssen durch {\tt include} in das Projekt
+    %eingebunden werden.
+  %\end{itemize}
+%\end{frame}
 
-\subsection{Kennwerte beobachten}
+\subsection{Key Value Tracking}
 
-\begin{frame}{Kennwerte mit {\tt tracereport} beobachten}
+\begin{frame}{Track Key Values with {\tt tracereport}}
   \begin{itemize}
-    \item Mit {\tt tracereports} können wichtige Kennwerte über die
-    Projektlaufzeit verfolgt werden.
-    \item Die Daten werden in eine CSV Datei geschrieben, die bei
-    nur bei expliziter Aktualisierung ergänzt wird.
+    \item With {\tt tracereports} you can track important key values over the whole projects lifetime.
+    \item Key values are exported to CSV explicitly on demand
     \item {\tt tj3 --add-trace yourproject.tjp}
-    \item Eignet sich hervorragend zur Erstellung aktueller Burndown
-    Charts.
-    \item {\tt tracereports} sind die größte Neuerung der nächsten
-    Version (3.2).
+    \item Can be used to create burndown charts
+    \item {\tt tracereports} is the main feature of the upcoming version (3.2)
   \end{itemize}
 \end{frame}
+%\begin{frame}{Kennwerte mit {\tt tracereport} beobachten}
+  %\begin{itemize}
+    %\item Mit {\tt tracereports} können wichtige Kennwerte über die
+    %Projektlaufzeit verfolgt werden.
+    %\item Die Daten werden in eine CSV Datei geschrieben, die bei
+    %nur bei expliziter Aktualisierung ergänzt wird.
+    %\item {\tt tj3 --add-trace yourproject.tjp}
+    %\item Eignet sich hervorragend zur Erstellung aktueller Burndown
+    %Charts.
+    %\item {\tt tracereports} sind die größte Neuerung der nächsten
+    %Version (3.2).
+  %\end{itemize}
+%\end{frame}
 
-\section{Ende}
+\section{End}
 
-\begin{frame}{Weiterführende Informationen}
+\begin{frame}{Follow Up Links}
   \begin{itemize}
-    \item TaskJuggler im Web: {\tt www.taskjuggler.org}
+    \item TaskJuggler on the web: \url{http://taskjuggler.org}
     \pause
-    \item Online Handbuch: {\tt
-   www.taskjuggler.org/tj3/manual/index.html}
+    \item Online Documentation: \url{http://taskjuggler.org/tj3/manual/}
     \vspace{15pt}
     \pause
-    \item Fragen?
+    \item Questions?
   \end{itemize}
 \end{frame}
+%\begin{frame}{Weiterführende Informationen}
+  %\begin{itemize}
+    %\item TaskJuggler im Web: {\tt www.taskjuggler.org}
+    %\pause
+    %\item Online Handbuch: {\tt
+   %www.taskjuggler.org/tj3/manual/index.html}
+    %\vspace{15pt}
+    %\pause
+    %\item Fragen?
+  %\end{itemize}
+%\end{frame}
 
 \end{document}
 
