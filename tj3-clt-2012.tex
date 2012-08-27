@@ -25,7 +25,7 @@
 
 \subtitle
 %{Projektmanagement ist mehr als Gantt-Diagramm-Zeichnen}
-{Project Management is more than Gantt Charts}
+{Project Management beyond Gantt Chart Drawing}
 
 \author[C. Schlaeger]{Chris Schlaeger}
 \institute{chris@linux.com}
@@ -77,7 +77,7 @@
 
 \begin{frame}{TaskJuggler and Linux}
   \begin{itemize}
-    \item TaskJuggler was initially developed to support the development unit of a Linux distribution
+    \item TaskJuggler was initially developed to support the development process of a Linux distribution
     \item It is still in use by some distributions such as Fedora
     \item It uses a simple project description language
     \item TaskJuggler works similar to a compiler or \LaTeX
@@ -98,10 +98,10 @@
 
 \begin{frame}{Ruby Runtime Environment}
   \begin{itemize}
-    \item TaskJuggler 3.x is written in ruby
-    \item The main functions are ruby 1.8.7 compatible
-    \item The server and scripting functions need at least ruby 1.9.3
-    \item We generally suggest to use ruby 1.9.3 since it is 3 times faster than ruby 1.8.7
+    \item TaskJuggler 3.x is written in Ruby
+    \item The main functions are Ruby 1.8.7 compatible
+    \item The server and scripting functions need at least Ruby 1.9.3
+    \item We generally suggest to use Ruby 1.9.3 since it is 3 times faster than ruby 1.8.7
   \end{itemize}
 \end{frame}
 %\begin{frame}{Die Ruby Laufzeitumgebung}
@@ -118,10 +118,10 @@
 \begin{frame}[fragile]{Gem Installation}
   \begin{itemize}
     \item Ruby is available on any Linux distribution
-    \item Unfortunately many distributions provide only ruby 1.8
-    \item RubyGem is the ruby package management tool
-    \item ruby gems are OS and CPU architecture independent
-    \item The installation mostly easy. A single command downloads the gem package as well as its dependencies and installs everything in you system:
+    \item Unfortunately many distributions provide only Ruby 1.8
+    \item RubyGem is the Ruby package management tool
+    \item Ruby gems are OS and CPU architecture independent
+    \item The installation is usually easy. A single command downloads the gem package as well as its dependencies and installs everything in you system:
       \begin{verbatim}
 gem install taskjuggler \end{verbatim}
   \end{itemize}
@@ -154,9 +154,9 @@ make
 sudo make install
 ln -s /usr/local/bin/ruby19 ${HOME}/bin/ruby \end{verbatim}
     \pause
-    \item \verb|${HOME}/bin| has to be part of your \verb|$PATH| varable
+    \item \verb|${HOME}/bin| has to be part of your \verb|$PATH| variable
     \pause
-    \item Each major ruby version has its own gem package collection
+    \item Each major Ruby version has its own gem package collection
   \end{itemize}
 \end{frame}
 %\begin{frame}[fragile]{Ruby 1.9 Installieren}
@@ -369,7 +369,7 @@ project "Example"  2012-03-01 +4m
   \begin{itemize}
     \item Date format and time zone localization
     \item Time format
-    \item Money value localization
+    \item Currency unit and value representation
   \end{itemize}
   \pause
   \begin{semiverbatim}
@@ -494,7 +494,7 @@ resource karl "Karl Mustermann"
         \end{lstlisting}
       \end{semiverbatim}
     \pause
-    \item Create a team
+    \item Define a team
       \vspace{-15pt}
       \begin{semiverbatim}
         \begin{lstlisting}
@@ -538,7 +538,7 @@ resource ateam "Das A-Team" {
 
 \begin{frame}[fragile]{Other resources such as tools}
   \begin{itemize}
-    \item The tool never sleeps but also does not work
+    \item Defining resources that don't contribute to the '''effort'''
       \begin{semiverbatim}
         \begin{lstlisting}
 resource tool "The Tool" {
@@ -933,7 +933,8 @@ textreport "" {
 \subsection{Project Tracking}
 
 \begin{frame}{Project Management Cycle}
-  After starting the project, the following tasks should be re-run on a regularly:
+  After starting the project, the following tasks should be re-run on
+  a regularly basis:
   \begin{itemize}
     \item Ask for done workload for current tasks
     \item Ask for workload or time left for current tasks
@@ -948,7 +949,7 @@ textreport "" {
     semi-automatically with {\tt timesheetreports}
     \item Hierarchical status reports be organized semi-automatically
     with {\tt statussheetreports}
-    \item This topic is too much complex for this slides but is documented
+    \item This topic is too complex for these slides but is documented
     well in the user documentation.
   \end{itemize}
 \end{frame}
@@ -1004,7 +1005,7 @@ tj3 --freeze yourproject.tjp \end{verbatim}
 
 \begin{frame}{Track Key Values with {\tt tracereport}}
   \begin{itemize}
-    \item With {\tt tracereports} you can track important key values over the whole projects lifetime.
+    \item With {\tt tracereports} you can track important key values over the whole project lifetime.
     \item Key values are exported to CSV explicitly on demand
     \item {\tt tj3 --add-trace yourproject.tjp}
     \item Can be used to create burndown charts
